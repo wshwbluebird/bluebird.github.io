@@ -5,7 +5,7 @@ header-img: img/home-bg.jpg
 email: 151250145@smail.nju.edu.cn
 description: a reminder to myself
 keyword: "nju"
-url: "https://bluebird.github.io"              # your host, for absolute URL
+url: "https://wshwbluebird.github.io"              # your host, for absolute URL
 baseurl: ""         # for example, '/blog' if your blog hosted on 'host/blog'
 
 
