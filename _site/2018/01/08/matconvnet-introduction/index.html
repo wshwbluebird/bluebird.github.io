@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="a reminder to myself">
+    <meta name="keyword"  content="nju">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>MAtConvNet 引入 - bluebird's Blog</title>
+
+    <link rel="canonical" href="http://localhost:4000/2018/01/08/matconvnet-introduction/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">bluebird's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-unix-linux.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-unix-linux.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#MatConvNet" title="MatConvNet">MatConvNet</a>
+                        
+                        <a class="tag" href="/tags/#ML FrameWork" title="ML FrameWork">ML FrameWork</a>
+                        
+                    </div>
+                    <h1>MAtConvNet 引入</h1>
+                    
+                    
+                    <h2 class="subheading">机器学习框架</h2>
+                    
+                    <span class="meta">Posted by bluebird on January 8, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<blockquote>
+  <p>“新手上路. ”</p>
+</blockquote>
+
+<h2 id="matconvnet-介绍">MatConvNet 介绍</h2>
+
+<p>Convolutional Neural Networks (CNN)已经在对计算机视觉邻域产生了非常深远的影响，而MatConvNet就是用MatLab工具实现的CNN框架。Matlab是当前计算机视觉领域非常主流的研究和开发工具，而集成在Matlab中的MatConvNet方便了科研人员对CNN的使用。</p>
+
+<p>由于CNN往往需要很大的数据来实现，所以CNN库的实现需要保证他的计算效率，MatConvNet通过对自身的代码实现的不断优化，以及对GPU计算的支持成为了主流的CNN库。同时MatConvNet使用户通过使用matlab命令来调用构造块，如	convolution, normalisation 和 pooling等，这些块可以很容易地组合和扩展以创建CNN体系结构，matlab自身对GPU计算的支持，使得用户自己也可以用matlab语言写出计算效率很高的构造块。</p>
+
+<p>MatConvNet是一个开源的框架，它可以从<a href="http://www.vlfeat.org/matconvnet">官网</a>以及从Git Hub下载</p>
+
+<h2 id="matconvnet-安装">MatConvNet 安装</h2>
+
+<p>MatConvNet的安装非常简单，这里提供两种安装的方式，目前都是cpu的安装方式，关于gpu的安装范式可以参考<a href="http://www.vlfeat.org/matconvnet/install/">这里</a></p>
+
+<h5 id="mex安装">mex安装</h5>
+
+<p>MEX从字面上是MATLAB和Executable 两个单词的缩写，MEX文件是一种可在matlab环境中调用的C语言（或fortran）衍生程序，mex的编译结果实际上就是一个带输出函数mexFunction 的dll文件。</p>
+
+<p>简单的说，如果你用C或者C++实现了一个函数，然后想用matlab来调用，那么这个时候你可以通过把它转换成mex文件来达到这个目的，而mex命令可以把.c或者.cpp文件转换成mex文件。</p>
+
+<p>mex要转换.c和.cpp文件需要一个能编译c和cpp文件的编译器，而这个编译器需要开发者在自己的环境中配置好。</p>
+
+<ol>
+  <li>对于<strong>macOS</strong>系统，要保证 Xcode 是安装好的，这样mex可以通过clang来编译.c或者.cpp</li>
+  <li>对于<strong>Linux</strong>系统，要确保 GCC 4.8 and LibJPEG 都已经安装好了。要安装LibJPEG，在Ubuntu/Debian类的操作系统上可以使 <code class="highlighter-rouge">sudo apt-get install build-essential libjpeg-turbo8-dev</code>命令，在Fedora/Centos/RedHat之类的操作系统，可以使用 <code class="highlighter-rouge">sudo yum install gcc gcc-c++ libjpeg-turbo-devel</code> 命令。老版本的GCC（比如4.7）可能在使用MatConvNet中出现不兼容的状况</li>
+  <li>对于<strong>Windows</strong>系统，要确保安装了 Visual Studio 2015 或者更新的版本</li>
+  <li>如果想要灵活的配置自己的编译器，可以到点<a href="http://cn.mathworks.com/help/matlab/matlab_external/changing-default-compiler.html">这里</a></li>
+</ol>
+
+<p>在配置好编译器后，可以在matlab的命令行窗口执行下面的命令，来安装mex</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="nb">mex</span> <span class="o">-</span><span class="n">setup</span> 
+<span class="o">&gt;</span> <span class="nb">mex</span> <span class="o">-</span><span class="n">setup</span> <span class="n">C</span><span class="o">++</span>
+</code></pre></div></div>
+
+<h5 id="手动安装">手动安装</h5>
+
+<ol>
+  <li>
+    <p>下载<a href="http://www.vlfeat.org/matconvnet/download/matconvnet-1.0-beta25.tar.gz">源代码</a>,到自己指定的目录，假设解压后的文件命名为<code class="highlighter-rouge">&lt;MatConvNet&gt;</code>.</p>
+  </li>
+  <li>
+    <p>编译源文件，在确保mex正确建立之后在Matlab命令行中使用如下命令进行源文件的编译</p>
+
+    <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="nb">cd</span> <span class="o">&lt;</span><span class="n">MatConvNet</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="nb">addpath</span> <span class="n">matlab</span>
+<span class="o">&gt;</span> <span class="n">vl_compilenn</span>
+</code></pre></div>    </div>
+
+    <p>正常情况下，编译可以成功，如果编译出现了问题，可以通过<code class="highlighter-rouge">vl_compilenn('verbose', 1)</code>来追踪出现问题的脚本</p>
+  </li>
+  <li>
+    <p>安装编译好后的文件，在matlab命令行中执行如下命令（这一步也可以在代码中实现）</p>
+
+    <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="nb">run</span> <span class="o">&lt;</span><span class="n">MatConvNet</span><span class="o">&gt;</span><span class="p">/</span><span class="n">matlab</span><span class="p">/</span><span class="n">vl_setupnn</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>测试，可以通过使用在matlab命令行中执行如下命令进行测试</p>
+
+    <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="n">vl_testnn</span>
+</code></pre></div>    </div>
+
+    <p>​</p>
+  </li>
+</ol>
+
+<h5 id="自动安装">自动安装</h5>
+
+<p>自动安装也是官方网站推荐的一种方式，并给出了一个使用网络模型进行物体识别的案例</p>
+
+<ol>
+  <li>
+    <p>首先打开Matlab，进入到要安装MatConvNet的目标路径中，建立一个新的setup.m文件</p>
+  </li>
+  <li>
+    <p>setup.m文件的内容如下</p>
+
+    <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">% Install and compile MatConvNet (needed once).</span>
+<span class="nb">untar</span><span class="p">(</span><span class="s1">'http://www.vlfeat.org/matconvnet/download/matconvnet-1.0-beta25.tar.gz'</span><span class="p">)</span> <span class="p">;</span>
+<span class="nb">cd</span> <span class="n">matconvnet</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="n">beta25</span>
+<span class="nb">run</span> <span class="n">matlab</span><span class="p">/</span><span class="n">vl_compilenn</span> <span class="p">;</span>
+
+<span class="c1">% Download a pre-trained CNN from the web (needed once).</span>
+<span class="n">urlwrite</span><span class="p">(</span><span class="k">...</span>
+  <span class="s1">'http://www.vlfeat.org/matconvnet/models/imagenet-vgg-f.mat'</span><span class="p">,</span> <span class="k">...</span>
+  <span class="s1">'imagenet-vgg-f.mat'</span><span class="p">)</span> <span class="p">;</span>
+
+<span class="c1">% Setup MatConvNet.</span>
+<span class="nb">run</span> <span class="n">matlab</span><span class="p">/</span><span class="n">vl_setupnn</span> <span class="p">;</span>
+
+<span class="c1">% Load a model and upgrade it to MatConvNet current version.</span>
+<span class="nb">net</span> <span class="o">=</span> <span class="nb">load</span><span class="p">(</span><span class="s1">'imagenet-vgg-f.mat'</span><span class="p">)</span> <span class="p">;</span>
+<span class="nb">net</span> <span class="o">=</span> <span class="n">vl_simplenn_tidy</span><span class="p">(</span><span class="nb">net</span><span class="p">)</span> <span class="p">;</span>
+
+<span class="c1">% Obtain and preprocess an image.</span>
+<span class="n">im</span> <span class="o">=</span> <span class="nb">imread</span><span class="p">(</span><span class="s1">'peppers.png'</span><span class="p">)</span> <span class="p">;</span>
+<span class="n">im_</span> <span class="o">=</span> <span class="nb">single</span><span class="p">(</span><span class="n">im</span><span class="p">)</span> <span class="p">;</span> <span class="c1">% note: 255 range</span>
+<span class="n">im_</span> <span class="o">=</span> <span class="n">imresize</span><span class="p">(</span><span class="n">im_</span><span class="p">,</span> <span class="nb">net</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">normalization</span><span class="o">.</span><span class="n">imageSize</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">))</span> <span class="p">;</span>
+<span class="n">im_</span> <span class="o">=</span> <span class="n">im_</span> <span class="o">-</span> <span class="nb">net</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">normalization</span><span class="o">.</span><span class="n">averageImage</span> <span class="p">;</span>
+
+<span class="c1">% Run the CNN.</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">vl_simplenn</span><span class="p">(</span><span class="nb">net</span><span class="p">,</span> <span class="n">im_</span><span class="p">)</span> <span class="p">;</span>
+
+<span class="c1">% Show the classification result.</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="nb">squeeze</span><span class="p">(</span><span class="nb">gather</span><span class="p">(</span><span class="n">res</span><span class="p">(</span><span class="k">end</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="p">))</span> <span class="p">;</span>
+<span class="p">[</span><span class="n">bestScore</span><span class="p">,</span> <span class="n">best</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span> <span class="p">;</span>
+<span class="nb">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">;</span> <span class="nb">clf</span> <span class="p">;</span> <span class="nb">imagesc</span><span class="p">(</span><span class="n">im</span><span class="p">)</span> <span class="p">;</span>
+<span class="nb">title</span><span class="p">(</span><span class="nb">sprintf</span><span class="p">(</span><span class="s1">'%s (%d), score %.3f'</span><span class="p">,</span><span class="k">...</span>
+   <span class="nb">net</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">classes</span><span class="o">.</span><span class="n">description</span><span class="p">{</span><span class="n">best</span><span class="p">},</span> <span class="n">best</span><span class="p">,</span> <span class="n">bestScore</span><span class="p">))</span> <span class="p">;</span>
+</code></pre></div>    </div>
+
+    <p>这段代码的内容是首先下载MatConvNet的源代码，解压后进行编译（所以要确保之前mex已经配置好）之后下载一个提前训练好的CNN模型，然后安装编译好的MatConvNet的源代码。</p>
+
+    <p>最后运行进行安装测试，测试跑的是一个识别物体的样例。上面的代码加载了一种那个图像，并用网络识别图像中的物体，打印识别的结果</p>
+  </li>
+  <li>
+    <p>运行setup，等待结果，如果运行正常可以看到如下结果<img src="../matconvnet_img/setup result.png" alt="setup result" /></p>
+
+    <p>​</p>
+  </li>
+</ol>
+
+<h3 id="引用">引用</h3>
+
+<p>http://www.vlfeat.org/matconvnet/quick/</p>
+
+<p>http://www.vlfeat.org/matconvnet/install/</p>
+
+<p>http://www.robots.ox.ac.uk/~vedaldi/assets/teach/2015/vedaldi15aims-bigdata-lecture-4-deep-learning-handout.pdf</p>
+
+<p>http://blog.sina.com.cn/s/blog_468651400100coas.html</p>
+
+<p>​</p>
+
+
+                <hr>
+
+                
+
+
+                <ul class="pager">
+                    
+                    
+                </ul>
+
+
+                
+
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/wshwbluebird">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; bluebird's Blog 2018
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'bluebird.github.io';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
