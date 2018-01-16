@@ -12,6 +12,8 @@ tags:
 
 > “新手上路. ”
 
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
 ##1. 基本形式
 
 对于由d个属性描述的示例，$$x = (x_1;x_2;…;x_d)$$，其中$$x_i$$是x在第i个属性上的取值，线性模型(linear model)通过学得一个属性的线性组合来进行预测的函数，即$$f(x)=w_1x_1+w_2x_2+...+w_dx_d+b$$一般用向量的形式表示为$$f(x)=w^Tx+b $$
