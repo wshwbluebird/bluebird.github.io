@@ -201,7 +201,11 @@ tags:
 
 #### 2. 交叉验证t检验
 
-​	比较两个学习器A和B，两个算法做k折交叉验证法，得到错误率分别为$$\varepsilon_1^A,\varepsilon_2^A,..,\varepsilon_k^A$$和$$\varepsilon_1^B,\varepsilon_2^B,..,\varepsilon_k^B$$使用成对t检验来比较两个算法的好坏。由$$\Delta_i =\varepsilon_i^A - \varepsilon_i^B  $$，得到$$\Delta_1,\Delta_2,…,\Delta_k$$，计算这些差值得均值$$\mu$$和方差$$\sigma^2$$，在"学习器A和学习B性能相同的情况下"，$$|\frac{\sqrt{k}\mu}{\sigma}|$$符合自由度为k-1的t分布
+​	比较两个学习器A和B，两个算法做k折交叉验证法，得到错误率分别为$$\varepsilon_1^A,\varepsilon_2^A,..,\varepsilon_k^A$$和$$\varepsilon_1^B,\varepsilon_2^B,..,\varepsilon_k^B$$使用成对t检验来比较两个算法的好坏。由$$\Delta_i =\varepsilon_i^A - \varepsilon_i^B  $$，得到$$\Delta_1,\Delta_2,…,\Delta_k$$，计算这些差值得均值$$\mu$$和方差$$\sigma^2$$，在学习器A和学习B性能相同的情况下，
+
+$$|\frac{\sqrt{k}\mu}{\sigma}|$$
+
+符合自由度为k-1的t分布
 
 #### 3. McNemar检验
 
@@ -212,7 +216,11 @@ tags:
 |  正确  | $$e_{00}$$ | $$e_{01}$$ |
 |  错误  | $$e_{10}$$ | $$e_{11}$$ |
 
-如果两个学习器学习能力相同，应该有$$e_{10}=e_{10}$$，则$$\frac{(|e_{10}-e_{10}|-1)^2}{e_{10}+e_{10}}$$ 符合自由度为1的卡方分布
+如果两个学习器学习能力相同，应该有$$e_{10}=e_{10}$$则
+
+$$\frac{(|e_{10}-e_{10}|-1)^2}{e_{10}+e_{10}}$$
+
+ 符合自由度为1的卡方分布
 
 #### 4. Friedman检验与Nemenyi后续检验
 
