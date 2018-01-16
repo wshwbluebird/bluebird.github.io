@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "MAtConvNet 引入"
+title:      "MatConvNet 引入"
 subtitle:   "机器学习框架"
 date:       2018-01-08
 author:     "bluebird"
